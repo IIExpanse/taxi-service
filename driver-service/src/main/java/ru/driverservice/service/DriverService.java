@@ -4,12 +4,10 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.driverservice.dto.DriverDto;
 import ru.driverservice.entity.DriverEntity;
-import ru.driverservice.exeption.NotFoundException;
+import ru.driverservice.exception.NotFoundException;
 import ru.driverservice.mapper.DriverMapper;
 import ru.driverservice.repository.DriverRepository;
 
@@ -30,7 +28,7 @@ public class DriverService {
     }
 
     public DriverEntity createDriver(@Valid DriverDto driverDto) {
-        DriverEntity driverEntity = DriverMapper.INSTANCE.driverDtoToDriver(driverDto);
+        DriverEntity driverEntity = driverMapper.driverDtoToEntity(driverDto);
 
         int currentYear = LocalDate.now().getYear();
         int birthYear = driverDto.getDateOfBirth().getYear();
@@ -63,17 +61,5 @@ public class DriverService {
         driverRepository.deleteById(id);
 
         return driverEntity;
-    }
-
-    public Page<DriverEntity> getDriversByFilter(String firstName, String lastName, Pageable pageable) {
-        if (firstName == null && lastName == null) {
-            return driverRepository.findAll(pageable);
-        } else if (firstName == null) {
-            return driverRepository.findAllByLastNameContaining(lastName, pageable);
-        } else if (lastName == null) {
-            return driverRepository.findAllByFirstNameContaining(firstName, pageable);
-        } else {
-            return driverRepository.findAllByFirstNameAndLastNameContaining(firstName, lastName, pageable);
-        }
     }
 }
