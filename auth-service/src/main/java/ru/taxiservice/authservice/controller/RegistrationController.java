@@ -20,10 +20,9 @@ public class RegistrationController {
         this.userService = userService;
     }
 
-    @PostMapping("")
-    public ResponseEntity register(@RequestBody RegistrationRequest request) {
+    @PostMapping
+    public ResponseEntity<UserDto> register(@RequestBody RegistrationRequest request) {
         UserDto userDto = userService.register(request);
         return ResponseEntity.ok(userDto);
-
     }
 }

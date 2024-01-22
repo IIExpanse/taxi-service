@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.taxiservice.authservice.dto.AuthenticationRequest;
 import ru.taxiservice.authservice.security.JwtUserDetailsService;
 import ru.taxiservice.authservice.security.jwtconfig.JwtTokenProvider;
-import ru.taxiservice.authservice.service.UserService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,19 +25,16 @@ public class AuthenticationController {
 
     private final JwtUserDetailsService userDetailsService;
 
-    private final UserService userService;
-
     @Autowired
     public AuthenticationController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider,
-                                    UserService userService, JwtUserDetailsService userDetailsService) {
+                                    JwtUserDetailsService userDetailsService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
-        this.userService = userService;
         this.userDetailsService = userDetailsService;
     }
 
-    @PostMapping("")
-    public ResponseEntity<?> login(@RequestBody AuthenticationRequest request) {
+    @PostMapping
+    public ResponseEntity<Map<String, String>> login(@RequestBody AuthenticationRequest request) {
         UsernamePasswordAuthenticationToken authInputToken = new UsernamePasswordAuthenticationToken(
                 request.username(), request.password()
         );
@@ -50,7 +46,7 @@ public class AuthenticationController {
         String username = request.username();
 
         String token = jwtTokenProvider.generateToken(username, userDetailsService.getUserRole(username));
-        Map<Object, Object> response = new HashMap<>();
+        Map<String, String> response = new HashMap<>();
         response.put("username", username);
         response.put("token", token);
         return ResponseEntity.ok(response);
