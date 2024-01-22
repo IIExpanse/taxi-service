@@ -23,7 +23,7 @@ public class RoutesController {
     }
 
     @GetMapping("/routes")
-    public ResponseEntity<Object> getRouteStat(
+    public ResponseEntity<RouteStatDto> getRouteStat(
             @RequestParam(required = false) String from,
             @RequestParam(required = false) String to
     ) {

@@ -21,7 +21,7 @@ public class RoutesService {
     }
 
     public RouteStatDto getRouteStat(String from, String to) {
-        int stat = 0;
+        int stat;
 
         if (to == null) {
             stat = repository.countRoutesByFrom(from);
