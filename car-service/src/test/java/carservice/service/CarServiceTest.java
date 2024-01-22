@@ -41,7 +41,7 @@ class CarServiceTest {
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
-                    .dateCreation(Instant.parse("2021-03-01T12:15:30Z"))
+                    .createdAt(Instant.parse("2021-03-01T12:15:30Z"))
                     .build();
             when(carRepository.save(any())).thenReturn(returnCar);
 
@@ -59,7 +59,7 @@ class CarServiceTest {
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
-                    .dateCreation(Instant.parse("2021-03-01T12:15:30Z"))
+                    .createdAt(Instant.parse("2021-03-01T12:15:30Z"))
                     .build();
             assertEquals(expected, actual);
         }
@@ -75,7 +75,7 @@ class CarServiceTest {
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
-                    .dateCreation(Instant.parse("2021-03-01T12:15:30Z"))
+                    .createdAt(Instant.parse("2021-03-01T12:15:30Z"))
                     .build();
             when(carRepository.findById(1)).thenReturn(Optional.of(returnCar));
 
@@ -87,7 +87,7 @@ class CarServiceTest {
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
-                    .dateCreation(Instant.parse("2021-03-01T12:15:30Z"))
+                    .createdAt(Instant.parse("2021-03-01T12:15:30Z"))
                     .build();
             assertEquals(expected, actual);
         }

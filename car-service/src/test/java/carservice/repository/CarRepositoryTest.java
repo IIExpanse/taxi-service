@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.time.Instant;
 
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Sql("/db/RESET_AUTO_INCREMENT.sql")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class CarRepositoryTest {
     @Autowired
     private CarRepository carRepository;
@@ -30,7 +30,7 @@ class CarRepositoryTest {
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
-                    .dateCreation(Instant.parse("2021-03-01T12:15:30Z"))
+                    .createdAt(Instant.parse("2021-03-01T12:15:30Z"))
                     .build();
 
             val actual = carRepository.save(car);
@@ -41,7 +41,7 @@ class CarRepositoryTest {
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
-                    .dateCreation(Instant.parse("2021-03-01T12:15:30Z"))
+                    .createdAt(Instant.parse("2021-03-01T12:15:30Z"))
                     .build();
             assertEquals(expected, actual);
             assertEquals(1, carRepository.count());
@@ -57,7 +57,7 @@ class CarRepositoryTest {
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
-                    .dateCreation(Instant.parse("2021-03-01T12:15:30Z"))
+                    .createdAt(Instant.parse("2021-03-01T12:15:30Z"))
                     .build();
             carRepository.save(car);
 
@@ -69,7 +69,7 @@ class CarRepositoryTest {
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
-                    .dateCreation(Instant.parse("2021-03-01T12:15:30Z"))
+                    .createdAt(Instant.parse("2021-03-01T12:15:30Z"))
                     .build();
             assertTrue(actual.isPresent());
             assertEquals(expected, actual.get());
@@ -85,7 +85,7 @@ class CarRepositoryTest {
                     .model("Corsa")
                     .mileage(300000)
                     .productionDate("01.2010")
-                    .dateCreation(Instant.parse("2021-03-01T12:15:30Z"))
+                    .createdAt(Instant.parse("2021-03-01T12:15:30Z"))
                     .build();
             carRepository.save(car);
 
@@ -95,7 +95,7 @@ class CarRepositoryTest {
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
-                    .dateCreation(Instant.parse("2021-03-01T12:15:30Z"))
+                    .createdAt(Instant.parse("2021-03-01T12:15:30Z"))
                     .build();
             val actual = carRepository.save(carUpdate);
 
@@ -105,7 +105,7 @@ class CarRepositoryTest {
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
-                    .dateCreation(Instant.parse("2021-03-01T12:15:30Z"))
+                    .createdAt(Instant.parse("2021-03-01T12:15:30Z"))
                     .build();
             assertEquals(expected, actual);
             assertEquals(expected, carRepository.findById(1).get());
@@ -121,7 +121,7 @@ class CarRepositoryTest {
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
-                    .dateCreation(Instant.parse("2021-03-01T12:15:30Z"))
+                    .createdAt(Instant.parse("2021-03-01T12:15:30Z"))
                     .build();
             carRepository.save(car);
 

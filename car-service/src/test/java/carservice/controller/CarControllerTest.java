@@ -39,6 +39,7 @@ class CarControllerTest extends AbstractControllerTest {
                     .id(1)
                     .brand("Bentley")
                     .model("Continental")
+                    .productionDate("01.2024")
                     .build();
             assertEquals(expected, actual);
         }
@@ -78,6 +79,7 @@ class CarControllerTest extends AbstractControllerTest {
                     .id(1)
                     .brand("Bentley")
                     .model("Continental")
+                    .productionDate("01.2024")
                     .build();
             assertEquals(expected, actual);
         }
@@ -107,6 +109,7 @@ class CarControllerTest extends AbstractControllerTest {
                     .id(1)
                     .brand("Bentley")
                     .model("Continental")
+                    .productionDate("01.2024")
                     .build();
             assertEquals(expected, actual);
         }
@@ -147,6 +150,7 @@ class CarControllerTest extends AbstractControllerTest {
                     .id(1)
                     .brand("Bentley")
                     .model("Continental")
+                    .productionDate("01.2024")
                     .build();
             assertEquals(expected, actual);
         }

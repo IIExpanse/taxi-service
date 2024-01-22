@@ -31,7 +31,7 @@ public class CarService {
                 .model(carRequestDto.getModel())
                 .mileage(carRequestDto.getMileage())
                 .productionDate(carRequestDto.getProductionDate())
-                .dateCreation(dateTimeProvider.nowAsInstant())
+                .createdAt(dateTimeProvider.nowAsInstant())
                 .build();
         return carRepository.save(car);
     }
