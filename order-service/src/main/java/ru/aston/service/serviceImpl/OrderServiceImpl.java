@@ -20,6 +20,7 @@ public class OrderServiceImpl implements OrderService {
 
     public OrderDto create(OrderDto orderDto) {
         OrderEntity orderEntity = mapper.fromDtoToEntity(orderDto);
+        orderEntity.setId(null);
         System.out.println(orderEntity);
         OrderDto orderDto1 = mapper.fromEntityToDto(repository.save(orderEntity));
         System.out.println(orderDto1);

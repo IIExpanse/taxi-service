@@ -17,12 +17,12 @@ public class OrderExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError badParam(Exception exception) {
         log.info("Получен статус 400 BAD_REQUEST {}", exception.getMessage());
-        return new ApiError(HttpStatus.CONFLICT, "Integrity constraint has been violated.",
+        return new ApiError(HttpStatus.BAD_REQUEST, "Integrity constraint has been violated.",
                 exception.getMessage(), LocalDateTime.now());
     }
 
     @ExceptionHandler(NotFoundException.class)
-    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiError notFound(Exception exception) {
         log.info("Получен статус 404 CONFLICT {}", exception.getMessage());
         return new ApiError(HttpStatus.NOT_FOUND, "Not found.",

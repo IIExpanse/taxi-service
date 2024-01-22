@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
-import static ru.aston.MainServiceApplication.DATE_TIME_FORMAT;
+import static ru.aston.OrderServiceApplication.DATE_TIME_FORMAT;
 
 
 @Getter
