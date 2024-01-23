@@ -36,7 +36,7 @@ class CarRepositoryTest {
             val actual = carRepository.save(car);
 
             val expected = Car.builder()
-                    .id(1)
+                    .id(1L)
                     .brand("Bentley")
                     .model("Continental")
                     .mileage(0)
@@ -61,10 +61,10 @@ class CarRepositoryTest {
                     .build();
             carRepository.save(car);
 
-            val actual = carRepository.findById(1);
+            val actual = carRepository.findById(1L);
 
             val expected = Car.builder()
-                    .id(1)
+                    .id(1L)
                     .brand("Bentley")
                     .model("Continental")
                     .mileage(0)
@@ -90,7 +90,7 @@ class CarRepositoryTest {
             carRepository.save(car);
 
             val carUpdate = Car.builder()
-                    .id(1)
+                    .id(1L)
                     .brand("Bentley")
                     .model("Continental")
                     .mileage(0)
@@ -100,7 +100,7 @@ class CarRepositoryTest {
             val actual = carRepository.save(carUpdate);
 
             val expected = Car.builder()
-                    .id(1)
+                    .id(1L)
                     .brand("Bentley")
                     .model("Continental")
                     .mileage(0)
@@ -108,7 +108,7 @@ class CarRepositoryTest {
                     .createdAt(Instant.parse("2021-03-01T12:15:30Z"))
                     .build();
             assertEquals(expected, actual);
-            assertEquals(expected, carRepository.findById(1).get());
+            assertEquals(expected, carRepository.findById(1L).get());
         }
     }
 
@@ -125,7 +125,7 @@ class CarRepositoryTest {
                     .build();
             carRepository.save(car);
 
-            carRepository.deleteById(1);
+            carRepository.deleteById(1L);
 
             assertEquals(0, carRepository.count());
         }

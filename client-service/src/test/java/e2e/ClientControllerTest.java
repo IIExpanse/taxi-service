@@ -4,6 +4,7 @@ import clientservice.ClientApplication;
 import clientservice.controller.AbstractControllerTest;
 import clientservice.dto.ClientResponseDto;
 import clientservice.entities.Client;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +27,7 @@ public class ClientControllerTest extends AbstractControllerTest {
     @Test
     void testGetClientById() {
         createClient(getDefaultClient());
-        final ClientResponseDto clientResponseDto = getData("/api/clients/1", ClientResponseDto.class);
+        final ClientResponseDto clientResponseDto = getData("/clients/1", ClientResponseDto.class);
         assertEquals("Ivan", clientResponseDto.getFirstName());
     }
 
@@ -34,6 +35,7 @@ public class ClientControllerTest extends AbstractControllerTest {
     void testUpdateClient() {
         createClient(getDefaultClient());
         final Client client = Client.builder()
+                .id(1L)
                 .firstName("Ivan")
                 .lastName("Ivanov")
                 .email("ivan@ivan.by")
@@ -41,7 +43,7 @@ public class ClientControllerTest extends AbstractControllerTest {
                 .login("ivan")
                 .build();
         final ClientResponseDto clientResponseDto =
-                sendData(HttpMethod.PUT, "/api/clients/1", client, ClientResponseDto.class);
+                sendData(HttpMethod.PUT, "/clients", client, ClientResponseDto.class);
 
         assertEquals(client.getFirstName(), clientResponseDto.getFirstName());
     }
@@ -50,7 +52,7 @@ public class ClientControllerTest extends AbstractControllerTest {
     void testDeleteClient() {
         createClient(getDefaultClient());
         final ClientResponseDto clientResponseDto =
-                sendData(HttpMethod.DELETE, "/api/clients/1", null, ClientResponseDto.class);
+                sendData(HttpMethod.DELETE, "/clients/1", null, ClientResponseDto.class);
         assertEquals("Ivan", clientResponseDto.getFirstName());
     }
 
@@ -65,6 +67,6 @@ public class ClientControllerTest extends AbstractControllerTest {
     }
 
     private ClientResponseDto createClient(Client client) {
-        return sendData(HttpMethod.POST, "/api/clients", client, ClientResponseDto.class);
+        return sendData(HttpMethod.POST, "/clients", client, ClientResponseDto.class);
     }
 }

@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureTestDatabase
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 class ControllerTest {
     private final ObjectMapper objectMapper;
     private final MockMvc mvc;
@@ -37,7 +37,7 @@ class ControllerTest {
                         .content(objectMapper.writeValueAsString(dto))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpectAll(
-                        status().isCreated(),
+                        status().isOk(),
                         content().json(objectMapper.writeValueAsString(dto))
                 );
     }

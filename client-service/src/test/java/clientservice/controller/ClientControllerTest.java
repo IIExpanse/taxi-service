@@ -26,7 +26,7 @@ class ClientControllerTest extends AbstractControllerTest {
         void shouldGetClientWhenClientExistById() {
             when(clientService.getClientById(1)).thenReturn(
                     Client.builder()
-                            .id(1)
+                            .id(1L)
                             .firstName("Ivan")
                             .lastName("Ivanov")
                             .email("qwe@as.eu")
@@ -34,7 +34,7 @@ class ClientControllerTest extends AbstractControllerTest {
                             .login("qwe")
                             .build());
 
-            val actual = getData("/api/clients/1", ClientResponseDto.class);
+            val actual = getData("/clients/1", ClientResponseDto.class);
 
             val expected = ClientResponseDto.builder()
                     .id(1)
@@ -49,7 +49,7 @@ class ClientControllerTest extends AbstractControllerTest {
         void shouldReturnExceptionWhenIdIsNotFound() {
             when(clientService.getClientById(1)).thenThrow(new NotFoundException("Client not found"));
 
-            val actual = testNotFound(HttpMethod.GET, "/api/clients/1");
+            val actual = testNotFound(HttpMethod.GET, "/clients/1");
 
             assertEquals(404, actual.andReturn().getResponse().getStatus());
         }
@@ -69,7 +69,7 @@ class ClientControllerTest extends AbstractControllerTest {
                     .build();
             when(clientService.createClient(clientRequestDto)).thenReturn(
                     Client.builder()
-                            .id(1)
+                            .id(1L)
                             .firstName("Ivan")
                             .lastName("Ivanov")
                             .email("qwe@qwe.ru")
@@ -77,7 +77,7 @@ class ClientControllerTest extends AbstractControllerTest {
                             .login("qwe")
                             .build());
 
-            val actual = sendData(HttpMethod.POST, "/api/clients", clientRequestDto, ClientResponseDto.class);
+            val actual = sendData(HttpMethod.POST, "/clients", clientRequestDto, ClientResponseDto.class);
 
             val expected = ClientResponseDto.builder()
                     .id(1)
@@ -94,14 +94,15 @@ class ClientControllerTest extends AbstractControllerTest {
         @Test
         void shouldPutClientWhenClientExistById() {
             val clientRequestDto = ClientRequestDto.builder()
+                    .id(1L)
                     .firstName("Ivan")
                     .lastName("Ivanov")
                     .email("qwe@qwe.ru")
                     .age(20)
                     .login("qwe")
                     .build();
-            when(clientService.updateClient(1, clientRequestDto)).thenReturn(Client.builder()
-                    .id(1)
+            when(clientService.updateClient(clientRequestDto)).thenReturn(Client.builder()
+                    .id(1L)
                     .firstName("Ivan")
                     .lastName("Ivanov")
                     .email("qwe@qwe.ru")
@@ -109,7 +110,7 @@ class ClientControllerTest extends AbstractControllerTest {
                     .login("qwe")
                     .build());
 
-            val actual = sendData(HttpMethod.PUT, "/api/clients/1", clientRequestDto, ClientResponseDto.class);
+            val actual = sendData(HttpMethod.PUT, "/clients", clientRequestDto, ClientResponseDto.class);
 
             val expected = ClientResponseDto.builder()
                     .id(1)
@@ -122,16 +123,17 @@ class ClientControllerTest extends AbstractControllerTest {
         @Test
         void shouldReturnExceptionWhenIdIsNotFound() {
             val clientRequestDto = ClientRequestDto.builder()
+                    .id(1L)
                     .firstName("Ivan")
                     .lastName("Ivanov")
                     .email("qwe@qwe.ru")
                     .age(20)
                     .login("qwe")
                     .build();
-            when(clientService.updateClient(1, clientRequestDto))
+            when(clientService.updateClient(clientRequestDto))
                     .thenThrow(new NotFoundException("Client not found"));
 
-            val actual = testNotFound(HttpMethod.PUT, "/api/clients/1", clientRequestDto);
+            val actual = testNotFound(HttpMethod.PUT, "/clients", clientRequestDto);
 
             assertEquals(404, actual.andReturn().getResponse().getStatus());
         }
@@ -143,7 +145,7 @@ class ClientControllerTest extends AbstractControllerTest {
         @Test
         void shouldDeleteClientWhenClientExistById() {
             when(clientService.deleteClient(1)).thenReturn(Client.builder()
-                    .id(1)
+                    .id(1L)
                     .firstName("Ivan")
                     .lastName("Ivanov")
                     .email("qwe@qwe.ru")
@@ -151,7 +153,7 @@ class ClientControllerTest extends AbstractControllerTest {
                     .login("qwe")
                     .build());
 
-            val actual = sendData(HttpMethod.DELETE, "/api/clients/1", null, ClientResponseDto.class);
+            val actual = sendData(HttpMethod.DELETE, "/clients/1", null, ClientResponseDto.class);
 
             val expected = ClientResponseDto.builder()
                     .id(1)
@@ -165,7 +167,7 @@ class ClientControllerTest extends AbstractControllerTest {
         void shouldReturnExceptionWhenIdIsNotFound() {
             when(clientService.deleteClient(1)).thenThrow(new NotFoundException("Client not found"));
 
-            testNotFound(HttpMethod.DELETE, "/api/clients/1");
+            testNotFound(HttpMethod.DELETE, "/clients/1");
         }
     }
 

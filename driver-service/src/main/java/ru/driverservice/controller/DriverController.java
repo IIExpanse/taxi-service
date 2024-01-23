@@ -25,7 +25,6 @@ import ru.driverservice.service.DriverService;
 @RestController
 @RequestMapping("/drivers")
 public class DriverController {
-
     DriverService driverService;
     DriverMapper driverMapper;
 
@@ -39,9 +38,9 @@ public class DriverController {
         return driverMapper.entityToDriverDto(driverService.createDriver(driverDto));
     }
 
-    @PutMapping("/{id}")
-    public DriverDto updateDriver(@PathVariable Long id, @Valid @RequestBody DriverDto driverDto) {
-        return driverMapper.entityToDriverDto(driverService.updateDriver(id, driverDto));
+    @PutMapping
+    public DriverDto updateDriver(@Valid @RequestBody DriverDto driverDto) {
+        return driverMapper.entityToDriverDto(driverService.updateDriver(driverDto));
     }
 
     @DeleteMapping("/{id}")

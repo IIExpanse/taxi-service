@@ -37,6 +37,8 @@ class RegistrationControllerTest {
                 "Dow",
                 "ROLE_USER"
         );
+        System.out.println(mapper.writeValueAsString(request));
+        System.out.println();
         UserDto userDto = new UserDto();
         userDto.setUsername(request.username());
         userDto.setFirstName(request.firstName());

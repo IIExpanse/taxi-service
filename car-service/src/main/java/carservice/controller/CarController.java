@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/cars")
+@RequestMapping("/cars")
 public class CarController {
     private final CarService carService;
     private final CarToCarResponseDto converter;
@@ -24,9 +24,9 @@ public class CarController {
         return converter.convert(carService.createCar(carRequestDto));
     }
 
-    @PutMapping("/{id}")
-    public CarResponseDto putClient(@PathVariable final int id, @RequestBody final CarRequestDto carRequestDto) {
-        return converter.convert(carService.updateCar(id, carRequestDto));
+    @PutMapping
+    public CarResponseDto putClient(@RequestBody final CarRequestDto carRequestDto) {
+        return converter.convert(carService.updateCar(carRequestDto));
     }
 
     @DeleteMapping("/{id}")

@@ -36,7 +36,7 @@ class CarServiceTest {
         void shouldCreateCar() {
             when(dateTimeProvider.nowAsInstant()).thenReturn(Instant.parse("2021-03-01T12:15:30Z"));
             val returnCar = Car.builder()
-                    .id(1)
+                    .id(1L)
                     .brand("Bentley")
                     .model("Continental")
                     .mileage(0)
@@ -54,7 +54,7 @@ class CarServiceTest {
             val actual = carService.createCar(carRequestDto);
 
             val expected = Car.builder()
-                    .id(1)
+                    .id(1L)
                     .brand("Bentley")
                     .model("Continental")
                     .mileage(0)
@@ -70,19 +70,19 @@ class CarServiceTest {
         @Test
         void shouldGetCarById() {
             val returnCar = Car.builder()
-                    .id(1)
+                    .id(1L)
                     .brand("Bentley")
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
                     .createdAt(Instant.parse("2021-03-01T12:15:30Z"))
                     .build();
-            when(carRepository.findById(1)).thenReturn(Optional.of(returnCar));
+            when(carRepository.findById(1L)).thenReturn(Optional.of(returnCar));
 
             val actual = carService.getCarById(1);
 
             val expected = Car.builder()
-                    .id(1)
+                    .id(1L)
                     .brand("Bentley")
                     .model("Continental")
                     .mileage(0)
@@ -94,7 +94,7 @@ class CarServiceTest {
 
         @Test
         void shouldThrowExceptionWhenClientNotExistById() {
-            when(carRepository.findById(1)).thenReturn(Optional.empty());
+            when(carRepository.findById(1L)).thenReturn(Optional.empty());
 
             assertThrows(NotFoundException.class, () -> carService.getCarById(1));
         }
@@ -105,38 +105,32 @@ class CarServiceTest {
         @Test
         void shouldUpdateCar() {
             val returnCar = Car.builder()
-                    .id(1)
+                    .id(1L)
                     .brand("Opel")
                     .model("Corsa")
                     .mileage(300000)
                     .productionDate("01.2010")
                     .build();
-            when(carRepository.findById(1)).thenReturn(Optional.of(returnCar));
+            when(carRepository.findById(1L)).thenReturn(Optional.of(returnCar));
             when(carRepository.save(any())).thenReturn(returnCar);
 
             val carRequestDto = CarRequestDto.builder()
+                    .id(1L)
                     .brand("Bentley")
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
                     .build();
-            val actual = carService.updateCar(1, carRequestDto);
+            val actual = carService.updateCar(carRequestDto);
 
             val expected = Car.builder()
-                    .id(1)
+                    .id(1L)
                     .brand("Bentley")
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
                     .build();
             assertEquals(expected, actual);
-        }
-
-        @Test
-        void shouldThrowExceptionWhenClientNotExistById() {
-            when(carRepository.findById(1)).thenReturn(Optional.empty());
-
-            assertThrows(NotFoundException.class, () -> carService.updateCar(1, null));
         }
     }
 
@@ -145,18 +139,18 @@ class CarServiceTest {
         @Test
         void shouldDeleteCar() {
             val returnCar = Car.builder()
-                    .id(1)
+                    .id(1L)
                     .brand("Bentley")
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
                     .build();
-            when(carRepository.findById(1)).thenReturn(Optional.of(returnCar));
+            when(carRepository.findById(1L)).thenReturn(Optional.of(returnCar));
 
             val actual = carService.deleteCar(1);
 
             val expected = Car.builder()
-                    .id(1)
+                    .id(1L)
                     .brand("Bentley")
                     .model("Continental")
                     .mileage(0)
@@ -167,7 +161,7 @@ class CarServiceTest {
 
         @Test
         void shouldThrowExceptionWhenClientNotExistById() {
-            when(carRepository.findById(1)).thenReturn(Optional.empty());
+            when(carRepository.findById(1L)).thenReturn(Optional.empty());
 
             assertThrows(NotFoundException.class, () -> carService.deleteCar(1));
         }

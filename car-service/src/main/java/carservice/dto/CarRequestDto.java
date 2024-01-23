@@ -11,6 +11,7 @@ import lombok.experimental.SuperBuilder;
 @Data
 @SuperBuilder
 public class CarRequestDto {
+    private Long id;
     private String brand;
     private String model;
     private String productionDate;

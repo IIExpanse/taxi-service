@@ -36,6 +36,7 @@ class AuthenticationControllerTest {
         RegistrationRequest regRequest = getDefaultRequest();
         register(regRequest);
         AuthenticationRequest authRequest = new AuthenticationRequest(regRequest.username(), regRequest.password());
+        System.out.println(mapper.writeValueAsString(authRequest));
 
         MockHttpServletResponse response = mvc.perform(
                 post("/auth", mapper.writeValueAsString(regRequest))
