@@ -36,12 +36,12 @@ public class CarService {
         return carRepository.save(car);
     }
 
-    public Car getCarById(final int id) {
+    public Car getCarById(final long id) {
         return carRepository.findById(id).orElseThrow(() -> new NotFoundException("Car not found"));
     }
 
-    public Car updateCar(final int id, @Valid CarRequestDto carRequestDto) {
-        Car car = carRepository.findById(id).orElseThrow(() -> new NotFoundException("Car not found"));
+    public Car updateCar(@Valid CarRequestDto carRequestDto) {
+        Car car = carRepository.findById(carRequestDto.getId()).orElseThrow(() -> new NotFoundException("Car not found"));
         car.setBrand(carRequestDto.getBrand());
         car.setModel(carRequestDto.getModel());
         car.setMileage(carRequestDto.getMileage());
@@ -49,7 +49,7 @@ public class CarService {
         return carRepository.save(car);
     }
 
-    public Car deleteCar(final int id) {
+    public Car deleteCar(final long id) {
         Car car = carRepository.findById(id).orElseThrow(() -> new NotFoundException("Car not found"));
         carRepository.deleteById(id);
         return car;

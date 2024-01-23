@@ -32,12 +32,13 @@ public class ClientService {
         return clientRepository.save(client);
     }
 
-    public Client getClientById(final int id) {
+    public Client getClientById(final long id) {
         return clientRepository.findById(id).orElseThrow(() -> new NotFoundException("Client not found"));
     }
 
-    public Client updateClient(final int id, @Valid final ClientRequestDto clientRequestDto) {
-        val client = clientRepository.findById(id).orElseThrow(() -> new NotFoundException("Client not found"));
+    public Client updateClient(@Valid final ClientRequestDto clientRequestDto) {
+        val client = clientRepository.findById(clientRequestDto.getId()).orElseThrow(() -> new NotFoundException("Client not found"));
+        client.setId(clientRequestDto.getId());
         client.setFirstName(clientRequestDto.getFirstName());
         client.setLastName(clientRequestDto.getLastName());
         client.setEmail(clientRequestDto.getEmail());
@@ -46,7 +47,7 @@ public class ClientService {
         return clientRepository.save(client);
     }
 
-    public Client deleteClient(final int id) {
+    public Client deleteClient(final long id) {
         val client = clientRepository.findById(id).orElseThrow(() -> new NotFoundException("Client not found"));
         clientRepository.deleteById(id);
         return client;

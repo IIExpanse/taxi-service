@@ -15,13 +15,12 @@ import ru.aston.service.serviceApi.OrderService;
 public class OrderController {
     private final OrderService service;
 
-    @GetMapping("/{orderId}")
-    public OrderDto read(@PathVariable Long orderId) {
-        return service.read(orderId);
+    @GetMapping("/{id}")
+    public OrderDto read(@PathVariable Long id) {
+        return service.read(id);
     }
 
     @PostMapping
-    @ResponseStatus(value = HttpStatus.CREATED)
     public OrderDto create(@Valid @RequestBody OrderDto order) {
         return service.create(order);
     }
@@ -31,8 +30,8 @@ public class OrderController {
         return service.update(order);
     }
 
-    @DeleteMapping("/{orderId}")
-    public void delete(@PathVariable Long orderId) {
-        service.delete(orderId);
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }

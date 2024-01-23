@@ -36,7 +36,7 @@ class ClientServiceTest {
         void shouldCreateClient() {
             when(dateTimeProvider.nowAsInstant()).thenReturn(Instant.parse("2021-03-01T12:15:30Z"));
             val returnClient = Client.builder()
-                    .id(1)
+                    .id(1L)
                     .firstName("Ivan")
                     .lastName("Ivanov")
                     .email("qwe@qee.ru")
@@ -56,7 +56,7 @@ class ClientServiceTest {
             val actual = clientService.createClient(clientRequestDto);
 
             val expected = Client.builder()
-                    .id(1)
+                    .id(1L)
                     .firstName("Ivan")
                     .lastName("Ivanov")
                     .email("qwe@qee.ru")
@@ -73,19 +73,19 @@ class ClientServiceTest {
         @Test
         void shouldGetClientById() {
             val returnClient = Client.builder()
-                    .id(1)
+                    .id(1L)
                     .firstName("Ivan")
                     .lastName("Ivanov")
                     .email("qwe@qwe.ru")
                     .age(20)
                     .login("qwe")
                     .build();
-            when(clientRepository.findById(1)).thenReturn(Optional.of(returnClient));
+            when(clientRepository.findById(1L)).thenReturn(Optional.of(returnClient));
 
             val actual = clientService.getClientById(1);
 
             val expected = Client.builder()
-                    .id(1)
+                    .id(1L)
                     .firstName("Ivan")
                     .lastName("Ivanov")
                     .email("qwe@qwe.ru")
@@ -97,7 +97,7 @@ class ClientServiceTest {
 
         @Test
         void shouldThrowExceptionWhenClientNotExistById() {
-            when(clientRepository.findById(1)).thenReturn(Optional.empty());
+            when(clientRepository.findById(1L)).thenReturn(Optional.empty());
 
             assertThrows(NotFoundException.class, () -> clientService.getClientById(1));
         }
@@ -108,27 +108,28 @@ class ClientServiceTest {
         @Test
         void shouldUpdateClient() {
             val returnClient = Client.builder()
-                    .id(1)
+                    .id(1L)
                     .firstName("Ivan")
                     .lastName("Ivanov")
                     .email("qwe@qwe.ru")
                     .age(20)
                     .login("qwe")
                     .build();
-            when(clientRepository.findById(1)).thenReturn(Optional.of(returnClient));
+            when(clientRepository.findById(1L)).thenReturn(Optional.of(returnClient));
             when(clientRepository.save(any())).thenReturn(returnClient);
 
             val clientRequestDto = ClientRequestDto.builder()
+                    .id(1L)
                     .firstName("Ivan")
                     .lastName("Ivanov")
                     .email("qwe@qwe.ru")
                     .age(20)
                     .login("qwe")
                     .build();
-            val actual = clientService.updateClient(1, clientRequestDto);
+            val actual = clientService.updateClient(clientRequestDto);
 
             val expected = Client.builder()
-                    .id(1)
+                    .id(1L)
                     .firstName("Ivan")
                     .lastName("Ivanov")
                     .email("qwe@qwe.ru")
@@ -136,13 +137,6 @@ class ClientServiceTest {
                     .login("qwe")
                     .build();
             assertEquals(expected, actual);
-        }
-
-        @Test
-        void shouldThrowExceptionWhenClientNotExistById() {
-            when(clientRepository.findById(1)).thenReturn(Optional.empty());
-
-            assertThrows(NotFoundException.class, () -> clientService.updateClient(1, null));
         }
     }
 
@@ -151,19 +145,19 @@ class ClientServiceTest {
         @Test
         void shouldDeleteClient() {
             val returnClient = Client.builder()
-                    .id(1)
+                    .id(1L)
                     .firstName("Ivan")
                     .lastName("Ivanov")
                     .email("qwe@qwe.ru")
                     .age(20)
                     .login("qwe")
                     .build();
-            when(clientRepository.findById(1)).thenReturn(Optional.of(returnClient));
+            when(clientRepository.findById(1L)).thenReturn(Optional.of(returnClient));
 
             val actual = clientService.deleteClient(1);
 
             val expected = Client.builder()
-                    .id(1)
+                    .id(1L)
                     .firstName("Ivan")
                     .lastName("Ivanov")
                     .email("qwe@qwe.ru")
@@ -175,7 +169,7 @@ class ClientServiceTest {
 
         @Test
         void shouldThrowExceptionWhenClientNotExistById() {
-            when(clientRepository.findById(1)).thenReturn(Optional.empty());
+            when(clientRepository.findById(1L)).thenReturn(Optional.empty());
 
             assertThrows(NotFoundException.class, () -> clientService.deleteClient(1));
         }

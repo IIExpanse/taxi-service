@@ -20,7 +20,6 @@
         <module>order-service</module>
         <module>route-service</module>
         <module>auth-service</module>
-        <module>employee-service</module>
         <module>mediator-service</module>
     </modules>
 

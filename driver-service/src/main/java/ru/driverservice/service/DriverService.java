@@ -39,8 +39,8 @@ public class DriverService {
         return driverRepository.save(driverEntity);
     }
 
-    public DriverEntity updateDriver(Long id, @Valid DriverDto driverDto) {
-        DriverEntity driverEntity = driverRepository.findById(id)
+    public DriverEntity updateDriver(@Valid DriverDto driverDto) {
+        DriverEntity driverEntity = driverRepository.findById(driverDto.getId())
                 .orElseThrow(() -> new NotFoundException("Driver not found"));
 
         driverMapper.updateDriverFromDto(driverDto, driverEntity);

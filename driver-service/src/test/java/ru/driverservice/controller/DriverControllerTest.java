@@ -65,7 +65,7 @@ public class DriverControllerTest {
         driverDto.setFirstName("UpdatedJohn");
         driverDto.setLastName("UpdatedDoe");
 
-        mockMvc.perform(put("/drivers/{id}", 1)
+        mockMvc.perform(put("/drivers")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(driverDto)))
                 .andExpect(status().isOk())

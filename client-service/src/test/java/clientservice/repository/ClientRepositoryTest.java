@@ -37,7 +37,7 @@ class ClientRepositoryTest {
             val actual = clientRepository.save(client);
 
             val expected = Client.builder()
-                    .id(1)
+                    .id(1L)
                     .firstName("Ivan")
                     .lastName("Ivanov")
                     .email("qwe@qwe.ru")
@@ -64,10 +64,10 @@ class ClientRepositoryTest {
                     .build();
             clientRepository.save(client);
 
-            val actual = clientRepository.findById(1);
+            val actual = clientRepository.findById(1L);
 
             val expected = Client.builder()
-                    .id(1)
+                    .id(1L)
                     .firstName("Ivan")
                     .lastName("Ivanov")
                     .email("qwe@qwe.ru")
@@ -95,7 +95,7 @@ class ClientRepositoryTest {
             clientRepository.save(client);
 
             val clientUpdate = Client.builder()
-                    .id(1)
+                    .id(1L)
                     .firstName("Petr")
                     .lastName("Ivanov")
                     .email("qwe@qwe.ru")
@@ -106,7 +106,7 @@ class ClientRepositoryTest {
             val actual = clientRepository.save(clientUpdate);
 
             val expected = Client.builder()
-                    .id(1)
+                    .id(1L)
                     .firstName("Petr")
                     .lastName("Ivanov")
                     .email("qwe@qwe.ru")
@@ -115,7 +115,7 @@ class ClientRepositoryTest {
                     .createdAt(Instant.parse("2021-03-01T12:15:30Z"))
                     .build();
             assertEquals(expected, actual);
-            assertEquals(expected, clientRepository.findById(1).get());
+            assertEquals(expected, clientRepository.findById(1L).get());
         }
     }
 
@@ -133,7 +133,7 @@ class ClientRepositoryTest {
                     .build();
             clientRepository.save(client);
 
-            clientRepository.deleteById(1);
+            clientRepository.deleteById(1L);
 
             assertEquals(0, clientRepository.count());
         }

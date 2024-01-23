@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.aston.dto.RouteDto;
@@ -14,15 +15,16 @@ import ru.aston.service.RoutesService;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/routes")
 public class RoutesController {
     private final RoutesService service;
 
-    @PutMapping("/routes")
+    @PutMapping
     public RouteDto addRoute(@RequestBody RouteDto routeDto) {
         return service.addRoute(routeDto);
     }
 
-    @GetMapping("/routes")
+    @GetMapping
     public ResponseEntity<RouteStatDto> getRouteStat(
             @RequestParam(required = false) String from,
             @RequestParam(required = false) String to

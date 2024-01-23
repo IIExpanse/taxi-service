@@ -27,14 +27,14 @@ class CarControllerTest extends AbstractControllerTest {
         void shouldGetCarWhenClientExistById() {
             when(carService.getCarById(1)).thenReturn(
                     Car.builder()
-                            .id(1)
+                            .id(1L)
                             .brand("Bentley")
                             .model("Continental")
                             .mileage(0)
                             .productionDate("01.2024")
                             .build());
 
-            val actual = getData("/api/cars/1", CarResponseDto.class);
+            val actual = getData("/cars/1", CarResponseDto.class);
             val expected = CarResponseDto.builder()
                     .id(1)
                     .brand("Bentley")
@@ -66,14 +66,14 @@ class CarControllerTest extends AbstractControllerTest {
 
             when(carService.createCar(carRequestDto)).thenReturn(
                     Car.builder()
-                            .id(1)
+                            .id(1L)
                             .brand("Bentley")
                             .model("Continental")
                             .mileage(0)
                             .productionDate("01.2024")
                             .build());
 
-            val actual = sendData(HttpMethod.POST, "/api/cars", carRequestDto, CarResponseDto.class);
+            val actual = sendData(HttpMethod.POST, "/cars", carRequestDto, CarResponseDto.class);
 
             val expected = CarResponseDto.builder()
                     .id(1)
@@ -90,20 +90,21 @@ class CarControllerTest extends AbstractControllerTest {
         @Test
         void shouldPutCarWhenCarExistById() {
             val carRequestDto = CarRequestDto.builder()
+                    .id(1L)
                     .brand("Bentley")
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
                     .build();
-            when(carService.updateCar(1, carRequestDto)).thenReturn(Car.builder()
-                    .id(1)
+            when(carService.updateCar(carRequestDto)).thenReturn(Car.builder()
+                    .id(1L)
                     .brand("Bentley")
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
                     .build());
 
-            val actual = sendData(HttpMethod.PUT, "/api/cars/1", carRequestDto, CarResponseDto.class);
+            val actual = sendData(HttpMethod.PUT, "/cars", carRequestDto, CarResponseDto.class);
 
             val expected = CarResponseDto.builder()
                     .id(1)
@@ -117,15 +118,16 @@ class CarControllerTest extends AbstractControllerTest {
         @Test
         void shouldReturnExceptionWhenIdIsNotFound() {
             val carRequestDto = CarRequestDto.builder()
+                    .id(1L)
                     .brand("Bentley")
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
                     .build();
-            when(carService.updateCar(1, carRequestDto))
+            when(carService.updateCar(carRequestDto))
                     .thenThrow(new NotFoundException("Car not found"));
 
-            val actual = testNotFound(HttpMethod.PUT, "/api/cars/1", carRequestDto);
+            val actual = testNotFound(HttpMethod.PUT, "/api/cars", carRequestDto);
 
             assertEquals(404, actual.andReturn().getResponse().getStatus());
         }
@@ -137,14 +139,14 @@ class CarControllerTest extends AbstractControllerTest {
         @Test
         void shouldDeleteCarWhenCarExistById() {
             when(carService.deleteCar(1)).thenReturn(Car.builder()
-                    .id(1)
+                    .id(1L)
                     .brand("Bentley")
                     .model("Continental")
                     .mileage(0)
                     .productionDate("01.2024")
                     .build());
 
-            val actual = sendData(HttpMethod.DELETE, "/api/cars/1", null, CarResponseDto.class);
+            val actual = sendData(HttpMethod.DELETE, "/cars/1", null, CarResponseDto.class);
 
             val expected = CarResponseDto.builder()
                     .id(1)
